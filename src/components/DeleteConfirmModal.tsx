@@ -28,24 +28,24 @@ export function DeleteConfirmModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in">
       <div
-        className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-slate-200/60 dark:bg-slate-950/80 backdrop-blur-sm"
         onClick={onClose}
       />
 
       <div className="relative z-10 w-full max-w-md animate-scale-in">
-        <div className="glass-card overflow-hidden rounded-3xl border-rose-500/20 shadow-2xl shadow-slate-950/50">
+        <div className="glass-card overflow-hidden rounded-3xl border-rose-500/20 shadow-2xl shadow-slate-950/20 dark:shadow-slate-950/50">
           <div className="flex items-start gap-4 px-6 pt-6">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-rose-500/15 text-rose-300 ring-1 ring-inset ring-rose-400/20">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-rose-500/15 text-rose-500 dark:text-rose-300 ring-1 ring-inset ring-rose-400/20">
               <AlertTriangle className="h-6 w-6" />
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold text-slate-50">
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50">
                 Excluir serviço
               </h2>
-              <p className="mt-1 text-sm text-slate-400">
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Tem certeza que deseja excluir{' '}
                 {serviceTitle ? (
-                  <strong className="font-semibold text-slate-200">
+                  <strong className="font-semibold text-slate-800 dark:text-slate-200">
                     "{serviceTitle}"
                   </strong>
                 ) : (
@@ -56,14 +56,14 @@ export function DeleteConfirmModal({
             </div>
             <button
               onClick={onClose}
-              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-700/60 bg-slate-900/80 text-slate-400 transition-all hover:border-slate-600 hover:text-slate-200"
+              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/80 text-slate-500 dark:text-slate-400 transition-all hover:border-slate-400 dark:hover:border-slate-600 hover:text-slate-800 dark:hover:text-slate-200"
             >
               <X className="h-4 w-4" />
             </button>
           </div>
 
           <div className="mt-4 px-6 pb-6">
-            <p className="rounded-2xl bg-slate-950/70 px-4 py-3 text-sm text-slate-400 ring-1 ring-inset ring-slate-800/80">
+            <p className="rounded-2xl bg-slate-950/40 dark:bg-slate-950/70 px-4 py-3 text-sm text-slate-600 dark:text-slate-400 ring-1 ring-inset ring-slate-200/60 dark:ring-slate-800/80 bg-white/60">
               Esta ação não pode ser desfeita. O serviço será removido do seu
               painel.
             </p>
@@ -71,7 +71,7 @@ export function DeleteConfirmModal({
             <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
               <button
                 onClick={onClose}
-                className="flex-1 rounded-2xl border border-slate-700/60 bg-slate-900/70 px-5 py-3 text-sm font-medium text-slate-300 transition-all hover:border-slate-600 hover:bg-slate-800/80 hover:text-slate-100 sm:flex-none"
+                className="flex-1 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/70 dark:bg-slate-900/70 px-5 py-3 text-sm font-medium text-slate-600 dark:text-slate-300 transition-all hover:border-slate-400 dark:hover:border-slate-600 hover:bg-white dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-slate-100 sm:flex-none"
               >
                 Cancelar
               </button>
