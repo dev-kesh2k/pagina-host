@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kesh Dashboard - Serviços Locais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.439.0/lucide.min.js" integrity="sha512-G4iLTsd8K4V1CzUjsj6GwcjK3iSg8CErkjG8tjfbkV/+axb9ywhefc/iYvUTV25vnVqRmJm3Gv74VT9jZPclLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+      body {
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      .glass-card {
+        background: rgba(15, 23, 42, 0.72);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+      }
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 24px 50px rgba(15, 23, 42, 0.22);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100">
+    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <header class="mb-10 rounded-3xl border border-slate-800/80 bg-slate-900/80 p-8 shadow-xl shadow-slate-950/30">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm uppercase tracking-[0.3em] text-cyan-400/80">Painel Local</p>
+            <h1 class="mt-3 text-4xl font-semibold tracking-tight text-slate-50 sm:text-5xl">Kesh Dashboard - Serviços Locais</h1>
+            <p class="mt-3 max-w-2xl text-slate-400 sm:text-base">Acesse seus serviços Docker de forma rápida e segura, em uma interface escura elegante.</p>
+          </div>
+          <div class="rounded-3xl bg-slate-950/90 px-5 py-4 text-slate-300 shadow-inner shadow-slate-900/40">
+            <p class="text-sm uppercase tracking-[0.22em] text-slate-500">Rápido Acesso</p>
+            <p class="mt-2 text-lg font-medium text-slate-100">Nginx • Apache • pgAdmin • Portainer</p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div id="dashboard-grid" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3"></div>
+      </main>
+    </div>
+
+    <script>
+      const services = [
+        {
+          title: "Nginx",
+          url: "http://127.0.0.1:8080",
+          description: "Servidor Web Principal e Proxy Reverso.",
+          icon: "globe",
+          badge: "8080",
+          color: "cyan",
+        },
+        {
+          title: "Apache",
+          url: "http://127.0.0.1:8081",
+          description: "Servidor Web Secundário (HTTPD).",
+          icon: "server",
+          badge: "8081",
+          color: "violet",
+        },
+        {
+          title: "pgAdmin",
+          url: "http://127.0.0.1:5050",
+          description: "Gerenciador de Banco de Dados PostgreSQL.",
+          icon: "database",
+          badge: "5050",
+          color: "amber",
+          footer: "User: admin@admin.com",
+        },
+        {
+          title: "Portainer",
+          url: "http://127.0.0.1:8080/portainer/",
+          description: "Gerenciamento visual de Containers Docker.",
+          icon: "layers",
+          badge: "Portainer",
+          color: "sky",
+        },
+        {
+          title: "Portainer TLS",
+          url: "https://127.0.0.1:9443",
+          description: "Acesso direto via HTTPS ao Portainer.",
+          icon: "box",
+          badge: "9443",
+          color: "sky",
+        },
+      ];
+
+      const cardGrid = document.getElementById("dashboard-grid");
+
+      function createCard(service) {
+        const anchor = document.createElement("a");
+        anchor.href = service.url;
+        anchor.target = "_blank";
+        anchor.rel = "noreferrer";
+        anchor.className = "card-hover glass-card group overflow-hidden rounded-3xl p-6 transition duration-300 hover:border-" + service.color + "-400/40 hover:bg-slate-800/90";
+
+        const header = document.createElement("div");
+        header.className = "flex items-center justify-between";
+
+        const left = document.createElement("div");
+        left.className = "flex items-center gap-4";
+
+        const iconWrapper = document.createElement("div");
+        iconWrapper.className = `flex h-14 w-14 items-center justify-center rounded-2xl bg-${service.color}-500/15 text-${service.color}-300 shadow-md shadow-${service.color}-500/10`;
+        iconWrapper.innerHTML = `<i data-lucide="${service.icon}" class="h-7 w-7"></i>`;
+
+        const textGroup = document.createElement("div");
+        textGroup.innerHTML = `
+          <p class="text-xs uppercase tracking-[0.25em] text-${service.color}-300/80">Serviço</p>
+          <h2 class="mt-2 text-2xl font-semibold text-slate-50">${service.title}</h2>
+        `;
+
+        left.appendChild(iconWrapper);
+        left.appendChild(textGroup);
+
+        const badge = document.createElement("div");
+        badge.className = `rounded-full border border-${service.color}-400/20 bg-slate-950/70 px-3 py-2 text-sm text-${service.color}-200`;
+        badge.textContent = service.badge;
+
+        header.appendChild(left);
+        header.appendChild(badge);
+
+        const description = document.createElement("p");
+        description.className = "mt-6 text-slate-400";
+        description.textContent = service.description;
+
+        anchor.appendChild(header);
+        anchor.appendChild(description);
+
+        if (service.footer) {
+          const footer = document.createElement("div");
+          footer.className = "mt-6 rounded-2xl bg-slate-950/70 px-4 py-3 text-sm text-slate-300";
+          footer.textContent = service.footer;
+          anchor.appendChild(footer);
+        }
+
+        return anchor;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        services.forEach(service => {
+          cardGrid.appendChild(createCard(service));
+        });
+
+        if (window.lucide) {
+          lucide.replace();
+        }
+      });
+    </script>
+  </body>
+</html>
