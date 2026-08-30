@@ -17,7 +17,11 @@ $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
-$WslProjectRoot = "/mnt/c/Users/Jefer/Documents/GitHub/pagina-host"
+
+$WinDrive = ($ProjectRoot.Substring(0,1)).ToLowerInvariant()
+$WslPath = $ProjectRoot -replace '\\','/' -replace '^[A-Za-z]:',"/mnt/$WinDrive"
+$WslProjectRoot = $WslPath
+
 $DeployPath = "/var/www/pagina-host"
 
 function Write-Step {
