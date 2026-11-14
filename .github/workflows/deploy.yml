@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    # Só documentação ou configuração do editor: não precisa publicar de novo.
+    paths-ignore:
+      - '**.md'
+      - '.editorconfig'
+      - '.gitattributes'
   workflow_dispatch:
 
 jobs:
